@@ -1,5 +1,5 @@
 name:           symbol
-version:        0.1.1
+version:        0.1.1.1
 cabal-version:  >= 1.6
 license:        BSD3
 license-file:   LICENSE
@@ -11,8 +11,8 @@ homepage:       http://www.eecs.harvard.edu/~mainland/
 category:       Data
 synopsis:       A 'Symbol' type for fast symbol comparison.
 description:    Provides a 'Symbol' data type allowing fast symbol comparisons
-		and functions for interning symbols and recovering their
-		'String' representation.
+                and functions for interning symbols and recovering their
+                'String' representation.
 
 build-type:     Simple
 
@@ -26,5 +26,5 @@ library
     syb >= 0.1 && < 0.4
 
 source-repository head
-  type:     svn
-  location: http://senseless.eecs.harvard.edu/repos/mainland-projects/symbol/trunk/
+  type:     git
+  location: git://github.com/mainland/symbol.git
