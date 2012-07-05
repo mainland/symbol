@@ -1,4 +1,4 @@
--- Copyright (c) 2009-2010
+-- Copyright (c) 2009-2012
 --         The President and Fellows of Harvard College.
 --
 -- Redistribution and use in source and binary forms, with or without
@@ -28,7 +28,7 @@
 --------------------------------------------------------------------------------
 -- |
 -- Module      :  Data.Symbol
--- Copyright   :  (c) Harvard University 2009-2010
+-- Copyright   :  (c) Harvard University 2009-2012
 -- License     :  BSD-style
 -- Maintainer  :  mainland@eecs.harvard.edu
 --
@@ -74,6 +74,7 @@ data SymbolEnv = SymbolEnv
     }
 
 symbolEnv :: MVar SymbolEnv
+{-# NOINLINE symbolEnv #-}
 symbolEnv = unsafePerformIO $ newMVar $ SymbolEnv 1 Map.empty
 
 -- We @seq@ @s@ so that we can guarantee that when we perform the lookup we
@@ -81,8 +82,8 @@ symbolEnv = unsafePerformIO $ newMVar $ SymbolEnv 1 Map.empty
 -- leading to a deadlock.
 
 -- |Intern a string to produce a 'Symbol'.
-{-# NOINLINE intern #-}
 intern :: String -> Symbol
+{-# NOINLINE intern #-}
 intern s = s `seq` unsafePerformIO $ modifyMVar symbolEnv $ \env -> do
     case Map.lookup s (symbols env) of
       Nothing  -> do let sym  = Symbol (uniq env) s
