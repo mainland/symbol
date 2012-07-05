@@ -64,7 +64,7 @@ instance Ord Symbol where
     compare (Symbol i1 _) (Symbol i2 _) = compare i1 i2
 
 instance Show Symbol where
-    showsPrec p (Symbol _ s) = showsPrec p s
+    showsPrec _ (Symbol _ s) = showString s
 
 #if __GLASGOW_HASKELL__ >= 608
 instance IsString Symbol where
