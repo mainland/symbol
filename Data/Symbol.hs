@@ -44,6 +44,7 @@ module Data.Symbol (
   ) where
 
 import Control.Concurrent.MVar
+import Control.DeepSeq
 import Data.Generics (Data, Typeable)
 #if __GLASGOW_HASKELL__ >= 608
 import Data.String
@@ -87,7 +88,7 @@ symbolEnv = unsafePerformIO $ newMVar $ SymbolEnv 1 Map.empty
 -- |Intern a string to produce a 'Symbol'.
 intern :: String -> Symbol
 {-# NOINLINE intern #-}
-intern s = s `seq` unsafePerformIO $ modifyMVar symbolEnv $ \env -> do
+intern s = s `deepseq` unsafePerformIO $ modifyMVar symbolEnv $ \env -> do
     case Map.lookup s (symbols env) of
       Nothing  -> do let sym  = Symbol (uniq env) s
                      let env' = env { uniq    = uniq env + 1,
