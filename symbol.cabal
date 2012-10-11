@@ -21,10 +21,10 @@ library
     Data.Symbol
 
   build-depends:
-    base >= 4 && < 5,
+    base       >= 4   && < 5,
     containers >= 0.2 && < 0.5,
-    deepseq >=1.0 && <2.0,
-    syb >= 0.1 && < 0.4
+    deepseq    >= 1.0 && < 2.0,
+    syb        >= 0.1 && < 0.4
 
 source-repository head
   type:     git
