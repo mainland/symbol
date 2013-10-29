@@ -1,5 +1,5 @@
 name:           symbol
-version:        0.1.4
+version:        0.2.0
 cabal-version:  >= 1.6
 license:        BSD3
 license-file:   LICENSE
