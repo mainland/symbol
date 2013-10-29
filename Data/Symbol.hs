@@ -52,8 +52,8 @@ symbolEnv :: MVar SymbolEnv
 {-# NOINLINE symbolEnv #-}
 symbolEnv = unsafePerformIO $ newMVar $ SymbolEnv 1 Map.empty
 
--- We @seq@ @s@ so that we can guarantee that when we perform the lookup we
--- won't potentially have to evaluate a thunk that might itself call @intern@,
+-- We @'deepseq' s@ so that we can guarantee that when we perform the lookup we
+-- won't potentially have to evaluate a thunk that might itself call @'intern'@,
 -- leading to a deadlock.
 
 -- |Intern a string to produce a 'Symbol'.
