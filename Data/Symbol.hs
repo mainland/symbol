@@ -1,6 +1,6 @@
 -- |
 -- Module      :  Data.Symbol
--- Copyright   :  (c) Harvard University 2009-2012
+-- Copyright   :  (c) Harvard University 2009-2011
 --             :  (c) Geoffrey Mainland 2011-2012
 -- License     :  BSD-style
 -- Maintainer  :  mainland@eecs.harvard.edu
