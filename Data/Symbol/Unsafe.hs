@@ -1,12 +1,12 @@
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE DeriveDataTypeable #-}
+
 -- |
 -- Module      :  Data.Symbol.Unsafe
 -- Copyright   :  (c) Harvard University 2009-2011
---             :  (c) Geoffrey Mainland 2011-2013
+--             :  (c) Geoffrey Mainland 2011-2014
 -- License     :  BSD-style
--- Maintainer  :  mainland@eecs.harvard.edu
-
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE DeriveDataTypeable #-}
+-- Maintainer  :  Geoffrey Mainland <mainland@cs.drexel.edu>
 
 module Data.Symbol.Unsafe (
     Symbol(..),
@@ -16,10 +16,11 @@ module Data.Symbol.Unsafe (
 
 import Control.Concurrent.MVar
 import Control.DeepSeq
-import Data.Generics (Data, Typeable)
+import Data.Data (Data)
 #if __GLASGOW_HASKELL__ >= 608
 import Data.String
 #endif /* __GLASGOW_HASKELL__ >= 608 */
+import Data.Typeable (Typeable)
 import qualified Data.Map as Map
 import System.IO.Unsafe (unsafePerformIO)
 
