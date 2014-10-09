@@ -37,7 +37,10 @@ instance Ord Symbol where
     compare (Symbol i1 _) (Symbol i2 _) = compare i1 i2
 
 instance Show Symbol where
-    showsPrec _ (Symbol _ s) = showString s
+    showsPrec d (Symbol _ s) = showsPrec d s
+
+instance Read Symbol where
+    readsPrec d t = [(intern s, t') | (s, t') <- readList t]
 
 #if __GLASGOW_HASKELL__ >= 608
 instance IsString Symbol where
