@@ -14,6 +14,7 @@ synopsis:       A 'Symbol' type for fast symbol comparison.
 description:    Provides a 'Symbol' data type allowing fast symbol comparisons
                 and functions for interning symbols and recovering their
                 'String' representation.
+tested-with:    GHC==7.4.2, GHC==7.6.3, GHC==7.8.3, GHC==7.10.3, GHC==8.0.1
 
 build-type:     Simple
 
