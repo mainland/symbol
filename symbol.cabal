@@ -5,8 +5,8 @@ license:        BSD3
 license-file:   LICENSE
 copyright:      (c) 2006-2011 Harvard University
 		(c) 2011-2014 Geoffrey Mainland
-author:         Geoffrey Mainland <mainland@cs.drexel.edu>
-maintainer:     Geoffrey Mainland <mainland@cs.drexel.edu>
+author:         Geoffrey Mainland <mainland@drexel.edu>
+maintainer:     Geoffrey Mainland <mainland@drexel.edu>
 stability:      alpha
 homepage:       http://www.cs.drexel.edu/~mainland/
 category:       Data
