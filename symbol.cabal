@@ -4,7 +4,7 @@ cabal-version:  >= 1.6
 license:        BSD3
 license-file:   LICENSE
 copyright:      (c) 2006-2011 Harvard University
-		(c) 2011-2014 Geoffrey Mainland
+                (c) 2011-2017 Geoffrey Mainland
 author:         Geoffrey Mainland <mainland@drexel.edu>
 maintainer:     Geoffrey Mainland <mainland@drexel.edu>
 stability:      alpha
@@ -14,7 +14,7 @@ synopsis:       A 'Symbol' type for fast symbol comparison.
 description:    Provides a 'Symbol' data type allowing fast symbol comparisons
                 and functions for interning symbols and recovering their
                 'String' representation.
-tested-with:    GHC==7.4.2, GHC==7.6.3, GHC==7.8.3, GHC==7.10.3, GHC==8.0.1
+tested-with:    GHC==7.4.2, GHC==7.6.3, GHC==7.8.3, GHC==7.10.3, GHC==8.0.2, GHC==8.2.1
 
 build-type:     Simple
 
