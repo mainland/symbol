@@ -1,4 +1,6 @@
 steps:
+  - tabs:
+      spaces: 8
   - simple_align:
       cases: always
       top_level_patterns: always
