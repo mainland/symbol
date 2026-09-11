@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.3.0
 
 - Add GHC 9.12 and 9.14 to CI and allow `containers` 0.8.
 - Fix generic `Data` operations to reconstruct symbols through `intern`,
