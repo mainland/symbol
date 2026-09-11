@@ -13,4 +13,4 @@ module Data.Symbol (
     unintern
   ) where
 
-import Data.Symbol.Unsafe
+import           Data.Symbol.Unsafe

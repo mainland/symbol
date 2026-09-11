@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP                #-}
 {-# LANGUAGE DeriveDataTypeable #-}
 
 -- |
@@ -14,15 +14,15 @@ module Data.Symbol.Unsafe (
     unintern
   ) where
 
-import Control.Concurrent.MVar
-import Control.DeepSeq
-import Data.Data (Data)
+import           Control.Concurrent.MVar
+import           Control.DeepSeq
+import           Data.Data               (Data)
 #if __GLASGOW_HASKELL__ >= 608
-import Data.String
+import           Data.String
 #endif /* __GLASGOW_HASKELL__ >= 608 */
-import Data.Typeable (Typeable)
-import qualified Data.Map as Map
-import System.IO.Unsafe (unsafePerformIO)
+import qualified Data.Map                as Map
+import           Data.Typeable           (Typeable)
+import           System.IO.Unsafe        (unsafePerformIO)
 
 data Symbol =  -- | Unique identifier and the string itself
                Symbol {-# UNPACK #-} !Int !String
