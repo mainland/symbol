@@ -16,7 +16,9 @@ module Data.Symbol.Unsafe (
 
 import           Control.Concurrent.MVar
 import           Control.DeepSeq
-import           Data.Data               (Data)
+import           Data.Data               (Constr, Data (..), DataType,
+                                          Fixity (Prefix), constrIndex,
+                                          mkConstr, mkDataType)
 #if __GLASGOW_HASKELL__ >= 608
 import           Data.String
 #endif /* __GLASGOW_HASKELL__ >= 608 */
@@ -27,8 +29,24 @@ import           System.IO.Unsafe        (unsafePerformIO)
 data Symbol =  -- | Unique identifier and the string itself
                Symbol {-# UNPACK #-} !Int !String
 #if defined(__GLASGOW_HASKELL__)
-  deriving (Data, Typeable)
+  deriving (Typeable)
 #endif /* defined(__GLASGOW_HASKELL__) */
+
+-- | Generic operations expose only the string and reconstruct through 'intern'
+-- to preserve the association between the string and its unique identifier.
+instance Data Symbol where
+    gfoldl k z sym = z intern `k` unintern sym
+    gunfold k z c
+        | constrIndex c == 1 = k (z intern)
+        | otherwise = error "Data.Symbol.Unsafe.gunfold: invalid constructor"
+    toConstr _ = symbolConstr
+    dataTypeOf _ = symbolDataType
+
+symbolDataType :: DataType
+symbolDataType = mkDataType "Data.Symbol.Unsafe.Symbol" [symbolConstr]
+
+symbolConstr :: Constr
+symbolConstr = mkConstr symbolDataType "Symbol" [] Prefix
 
 instance Eq Symbol where
     (Symbol i1 _) == (Symbol i2 _) = i1 == i2

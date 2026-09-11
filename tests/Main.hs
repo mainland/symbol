@@ -5,8 +5,12 @@ import           Control.Concurrent    (forkFinally, killThread, newEmptyMVar,
 import           Control.Exception     (ErrorCall, evaluate, finally, throwIO,
                                         try)
 import           Control.Monad         (forM, forM_)
+import           Data.Data             (Data, fromConstrB, gmapM, gmapT,
+                                        toConstr)
+import           Data.Maybe            (fromMaybe)
 import           Data.String           (fromString)
 import           Data.Symbol           (Symbol, intern, unintern)
+import           Data.Typeable         (Typeable, cast)
 import           Test.Tasty            (TestTree, defaultMain, localOption,
                                         mkTimeout, testGroup)
 import           Test.Tasty.HUnit      (Assertion, assertFailure, testCase,
@@ -67,6 +71,35 @@ tests = testGroup "symbol"
         , testCase "rejects malformed input" $
             (readMaybe "\"unterminated" :: Maybe Symbol) @?= Nothing
         ]
+    , testGroup "Data instance"
+        [ testCase "generic string updates preserve interning" $ do
+            let original = intern "generic:original"
+                expected = intern "generic:changed"
+                changed = gmapT (replace ("generic:changed" :: String)) original
+            unintern changed @?= "generic:changed"
+            changed @?= expected
+            (changed == original) @?= False
+            compare changed expected @?= EQ
+        , testCase "generic integer updates cannot forge identifiers" $ do
+            let original = intern "generic:original"
+                changed = gmapT (replace (0 :: Int)) original
+            changed @?= original
+            unintern changed @?= unintern original
+        , testProperty "generic identity traversal preserves symbols" $
+            \(UnicodeString s) ->
+                let sym = gmapT id (intern s)
+                in sym == intern s && unintern sym == s
+        , testCase "monadic generic updates preserve interning" $ do
+            changed <- gmapM (return . replace ("generic:changed" :: String))
+                (intern "generic:original")
+            changed @?= intern "generic:changed"
+            unintern changed @?= "generic:changed"
+        , testCase "generic construction interns its argument" $ do
+            let rebuilt = fromConstrB (stringField "generic:rebuilt")
+                    (toConstr (intern "generic:original")) :: Symbol
+            rebuilt @?= intern "generic:rebuilt"
+            unintern rebuilt @?= "generic:rebuilt"
+        ]
     , localOption (mkTimeout 10000000) $ testGroup "evaluation and concurrency"
         [ testCase "nested interning does not deadlock" $ do
             sym <- evaluate (intern ("outer:" ++ unintern (intern "inner")))
@@ -82,6 +115,12 @@ tests = testGroup "symbol"
         , testCase "concurrent interning preserves identity" concurrentInterning
         ]
     ]
+
+replace :: (Typeable a, Typeable b) => a -> b -> b
+replace replacement value = fromMaybe value (cast replacement)
+
+stringField :: Data a => String -> a
+stringField value = fromMaybe (error "Unexpected non-string Symbol field") (cast value)
 
 invert :: Ordering -> Ordering
 invert LT = GT
