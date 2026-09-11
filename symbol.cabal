@@ -4,7 +4,7 @@ cabal-version:  >= 1.10
 license:        BSD3
 license-file:   LICENSE
 copyright:      (c) 2006-2011 Harvard University
-                (c) 2011-2024 Geoffrey Mainland
+                (c) 2011-2026 Geoffrey Mainland
 author:         Geoffrey Mainland <mainland@drexel.edu>
 maintainer:     Geoffrey Mainland <mainland@drexel.edu>
 stability:      alpha
@@ -25,7 +25,9 @@ tested-with:    GHC==8.0.2,
                 GHC==9.4.8,
                 GHC==9.6.4,
                 GHC==9.8.2,
-                GHC==9.10.1
+                GHC==9.10.1,
+                GHC==9.12.4,
+                GHC==9.14.1
 
 build-type:     Simple
 
@@ -36,11 +38,11 @@ library
 
   build-depends:
     base       >= 4   && < 5,
-    containers >= 0.2 && < 0.8,
-    deepseq    >= 1.0 && < 2.0
+    containers >= 0.2 && < 0.9,
+    deepseq    >= 1.0 && < 2
 
   default-language: Haskell2010
 
 source-repository head
   type:     git
-  location: git://github.com/mainland/symbol.git
+  location: https://github.com/mainland/symbol.git
