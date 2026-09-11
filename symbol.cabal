@@ -32,6 +32,8 @@ tested-with:    GHC==8.0.2,
 build-type:     Simple
 
 library
+  hs-source-dirs: src
+
   exposed-modules:
     Data.Symbol
     Data.Symbol.Unsafe
