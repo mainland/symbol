@@ -4,6 +4,10 @@
 --             :  (c) Geoffrey Mainland 2011-2014
 -- License     :  BSD-style
 -- Maintainer  :  Geoffrey Mainland <mainland@cs.drexel.edu>
+--
+-- This module exposes the raw symbol constructor. Constructing symbols directly
+-- can break the association between identifiers and strings. Prefer the abstract
+-- API in "Data.Symbol" and construct symbols with 'intern'.
 
 module Data.Symbol.Unsafe (
     Symbol(..),
@@ -20,6 +24,9 @@ import qualified Data.Map                as Map
 import           Data.String
 import           System.IO.Unsafe        (unsafePerformIO)
 
+-- | An interned string. Equality and ordering compare allocated identifiers in
+-- constant time. Ordering can vary with evaluation order and between runs;
+-- compare the results of 'unintern' for lexicographic ordering.
 data Symbol =  -- | Unique identifier and the string itself
                Symbol {-# UNPACK #-} !Int !String
 
@@ -67,7 +74,12 @@ symbolEnv = unsafePerformIO $ newMVar $ SymbolEnv 1 Map.empty
 -- won't potentially have to evaluate a thunk that might itself call @'intern'@,
 -- leading to a deadlock.
 
--- |Intern a string to produce a 'Symbol'.
+-- | Intern a string using the synchronized global symbol table. Equal strings
+-- produce equal symbols. The input is fully evaluated before accessing the
+-- table, so it must be finite and fully defined.
+--
+-- Every distinct interned string and its symbol remain in the table for the
+-- lifetime of the process, even after callers drop all references.
 intern :: String -> Symbol
 {-# NOINLINE intern #-}
 intern s = s `deepseq` unsafePerformIO $ modifyMVar symbolEnv $ \env -> do
@@ -80,6 +92,6 @@ intern s = s `deepseq` unsafePerformIO $ modifyMVar symbolEnv $ \env -> do
                      env' `seq` return (env', sym)
       Just sym -> return (env, sym)
 
--- |Return the 'String' associated with a 'Symbol'.
+-- | Return the string associated with a symbol.
 unintern :: Symbol -> String
 unintern (Symbol _ s) = s
