@@ -1,6 +1,3 @@
-{-# LANGUAGE CPP                #-}
-{-# LANGUAGE DeriveDataTypeable #-}
-
 -- |
 -- Module      :  Data.Symbol.Unsafe
 -- Copyright   :  (c) Harvard University 2009-2011
@@ -19,18 +16,12 @@ import           Control.DeepSeq
 import           Data.Data               (Constr, Data (..), DataType,
                                           Fixity (Prefix), constrIndex,
                                           mkConstr, mkDataType)
-#if __GLASGOW_HASKELL__ >= 608
-import           Data.String
-#endif /* __GLASGOW_HASKELL__ >= 608 */
 import qualified Data.Map                as Map
-import           Data.Typeable           (Typeable)
+import           Data.String
 import           System.IO.Unsafe        (unsafePerformIO)
 
 data Symbol =  -- | Unique identifier and the string itself
                Symbol {-# UNPACK #-} !Int !String
-#if defined(__GLASGOW_HASKELL__)
-  deriving (Typeable)
-#endif /* defined(__GLASGOW_HASKELL__) */
 
 -- | Generic operations expose only the string and reconstruct through 'intern'
 -- to preserve the association between the string and its unique identifier.
@@ -58,12 +49,10 @@ instance Show Symbol where
     showsPrec d (Symbol _ s) = showsPrec d s
 
 instance Read Symbol where
-    readsPrec d t = [(intern s, t') | (s, t') <- readList t]
+    readsPrec _ t = [(intern s, t') | (s, t') <- readList t]
 
-#if __GLASGOW_HASKELL__ >= 608
 instance IsString Symbol where
     fromString = intern
-#endif /* __GLASGOW_HASKELL__ >= 608 */
 
 data SymbolEnv = SymbolEnv
     { uniq    :: {-# UNPACK #-} !Int
