@@ -36,9 +36,9 @@ instance Data Symbol where
     gfoldl k z sym = z intern `k` unintern sym
     gunfold k z c
         | constrIndex c == 1 = k (z intern)
-        | otherwise = error "Data.Symbol.Unsafe.gunfold: invalid constructor"
-    toConstr _ = symbolConstr
-    dataTypeOf _ = symbolDataType
+        | otherwise          = error "Data.Symbol.Unsafe.gunfold: invalid constructor"
+    toConstr _     = symbolConstr
+    dataTypeOf _   = symbolDataType
 
 symbolDataType :: DataType
 symbolDataType = mkDataType "Data.Symbol.Unsafe.Symbol" [symbolConstr]
