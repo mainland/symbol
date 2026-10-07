@@ -61,6 +61,12 @@ instance Read Symbol where
 instance IsString Symbol where
     fromString = intern
 
+-- | Fully evaluates the string. Symbols created with 'intern' are already fully
+-- evaluated, so this matters only for symbols built with the v'Symbol'
+-- constructor.
+instance NFData Symbol where
+    rnf (Symbol _ s) = rnf s
+
 data SymbolEnv = SymbolEnv
     { uniq    :: {-# UNPACK #-} !Int
     , symbols :: !(Map.Map String Symbol)

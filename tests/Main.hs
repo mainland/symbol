@@ -2,6 +2,7 @@ module Main (main) where
 
 import           Control.Concurrent    (forkFinally, killThread, newEmptyMVar,
                                         putMVar, readMVar, takeMVar)
+import           Control.DeepSeq       (deepseq, rnf)
 import           Control.Exception     (ErrorCall, evaluate, finally, throwIO,
                                         try)
 import           Control.Monad         (forM, forM_)
@@ -10,6 +11,7 @@ import           Data.Data             (Data, fromConstrB, gmapM, gmapT,
 import           Data.Maybe            (fromMaybe)
 import           Data.String           (fromString)
 import           Data.Symbol           (Symbol, intern, unintern)
+import qualified Data.Symbol.Unsafe    as Unsafe
 import           Data.Typeable         (Typeable, cast)
 import           Test.Tasty            (TestTree, defaultMain, localOption,
                                         mkTimeout, testGroup)
@@ -99,6 +101,17 @@ tests = testGroup "symbol"
                     (toConstr (intern "generic:original")) :: Symbol
             rebuilt @?= intern "generic:rebuilt"
             unintern rebuilt @?= "generic:rebuilt"
+        ]
+    , testGroup "NFData instance"
+        [ testProperty "deepseq preserves interned symbols" $ \(UnicodeString s) ->
+            let sym = intern s
+            in sym `deepseq` (sym == intern s && unintern sym == s)
+        , testCase "rnf forces the whole string" $ do
+            result <- try (evaluate (rnf (Unsafe.Symbol 0 ('x' : error "unevaluated tail"))))
+                :: IO (Either ErrorCall ())
+            case result of
+                Left _   -> return ()
+                Right () -> assertFailure "rnf did not evaluate the string"
         ]
     , localOption (mkTimeout 10000000) $ testGroup "evaluation and concurrency"
         [ testCase "nested interning does not deadlock" $ do

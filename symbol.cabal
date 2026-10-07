@@ -57,11 +57,12 @@ test-suite symbol-tests
   main-is: Main.hs
 
   build-depends:
-    base             >= 4.9  && < 5,
+    base             >= 4.9     && < 5,
+    deepseq          >= 1.4.2.0 && < 2,
     symbol,
-    tasty            >= 1.4  && < 1.6,
-    tasty-hunit      >= 0.10 && < 0.11,
-    tasty-quickcheck >= 0.10 && < 0.12
+    tasty            >= 1.4     && < 1.6,
+    tasty-hunit      >= 0.10    && < 0.11,
+    tasty-quickcheck >= 0.10    && < 0.12
 
   default-language: Haskell2010
   ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N2
