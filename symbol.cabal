@@ -7,8 +7,9 @@ copyright:      (c) 2006-2011 Harvard University
                 (c) 2011-2026 Geoffrey Mainland
 author:         Geoffrey Mainland <mainland@drexel.edu>
 maintainer:     Geoffrey Mainland <mainland@drexel.edu>
-stability:      alpha
+stability:      stable
 homepage:       https://github.com/mainland/symbol
+bug-reports:    https://github.com/mainland/symbol/issues
 category:       Data
 synopsis:       A 'Symbol' type for fast symbol comparison.
 description:    Provides a 'Symbol' data type allowing fast symbol comparisons

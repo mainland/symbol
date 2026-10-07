@@ -3,9 +3,9 @@
 -- |
 -- Module      :  Data.Symbol
 -- Copyright   :  (c) Harvard University 2009-2011
---             :  (c) Geoffrey Mainland 2011-2014
+--             :  (c) Geoffrey Mainland 2011-2026
 -- License     :  BSD-style
--- Maintainer  :  Geoffrey Mainland <mainland@cs.drexel.edu>
+-- Maintainer  :  Geoffrey Mainland <mainland@drexel.edu>
 --
 -- Interned strings with constant-time equality and ordering. Use 'intern' to
 -- create a symbol and 'unintern' to recover its string.

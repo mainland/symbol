@@ -1,9 +1,9 @@
 -- |
 -- Module      :  Data.Symbol.Unsafe
 -- Copyright   :  (c) Harvard University 2009-2011
---             :  (c) Geoffrey Mainland 2011-2014
+--             :  (c) Geoffrey Mainland 2011-2026
 -- License     :  BSD-style
--- Maintainer  :  Geoffrey Mainland <mainland@cs.drexel.edu>
+-- Maintainer  :  Geoffrey Mainland <mainland@drexel.edu>
 --
 -- This module exposes the raw symbol constructor. Constructing symbols directly
 -- can break the association between identifiers and strings. Prefer the
