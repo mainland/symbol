@@ -35,7 +35,6 @@ build-type:     Simple
 extra-source-files:
   README.md
   CHANGELOG.md
-  .stylish-haskell.yaml
 
 library
   hs-source-dirs: src
