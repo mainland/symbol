@@ -2,7 +2,7 @@
 
 -- |
 -- Module      :  Data.Symbol
--- Copyright   :  (c) Harvard University 2009-2011
+-- Copyright   :  (c) Harvard University 2006-2011
 --             :  (c) Geoffrey Mainland 2011-2026
 -- License     :  BSD-style
 -- Maintainer  :  Geoffrey Mainland <mainland@drexel.edu>
