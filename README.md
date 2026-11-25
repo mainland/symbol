@@ -29,3 +29,10 @@ save. To format from the command line:
 ```sh
 stylish-haskell -i Setup.hs src/Data/Symbol.hs src/Data/Symbol/Unsafe.hs tests/Main.hs
 ```
+
+## AI assistance
+
+All contributions included in releases through version `0.2.4.1` were made
+without AI assistance. AI tools were used in development, review, and release
+preparation after that version, through version `1.0.0`. The maintainer remains
+responsible for this release.
